@@ -33,6 +33,7 @@ Reemplace esta tabla por los dos casos de su asignación. Incluya una captura po
 | CP-02: inválido, límite o cancelación| Ingresarel nombre "pedro" en el cuadro de búsqueda. | Una búsqueda sin coincidencias informa que no hay resultados. | La tabla de registros se ocultó y la interfaz mostró el mensaje "No se encontraron resultados para la búsqueda.". | Aprobado |
 ## Entrega
 
-- URL del repositorio individual.
-- URL pública de GitHub Pages.
+- URL del repositorio individual: https://github.com/micaelvex/15-IS2-mamani-valencia
+- URL pública de GitHub Pages: https://micaelvex.github.io/15-IS2-mamani-valencia/
+
 - README actualizado con los dos casos de prueba.

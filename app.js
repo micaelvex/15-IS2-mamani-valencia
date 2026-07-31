@@ -59,10 +59,17 @@ function formatDate(dateValue) {
   return new Intl.DateTimeFormat("es-PE", { dateStyle: "medium" }).format(new Date(`${dateValue}T00:00:00`));
 }
 
-function renderLoans() {
-  const loans = loadLoans();
+// INICIO MODIFICACIÓN FICHA 15: Función renderLoans actualizada
+function renderLoans(searchTerm = "") {
+  const allLoans = loadLoans(); // Obtenemos todos los préstamos guardados
+  
+  // Filtramos los préstamos según lo que se escriba en el buscador
+  const filteredLoans = allLoans.filter((loan) => 
+    loan.borrower.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   loanList.innerHTML = "";
-  loans.forEach((loan) => {
+  filteredLoans.forEach((loan) => {
     const row = document.createElement("tr");
     const isActive = loan.status === "Activo";
     row.innerHTML = `
@@ -74,11 +81,25 @@ function renderLoans() {
       <td>${isActive ? `<button type="button" class="return-btn" data-id="${loan.id}">Registrar devolución</button>` : "—"}</td>`;
     loanList.append(row);
   });
-  const active = loans.filter((loan) => loan.status === "Activo").length;
+
+  // El contador de activos muestra el total real, sin importar el filtro
+  const active = allLoans.filter((loan) => loan.status === "Activo").length;
   activeCount.textContent = `${active} activo${active === 1 ? "" : "s"}`;
-  emptyState.hidden = loans.length !== 0;
+  
+  // Lógica para cumplir el criterio: informar si no hay resultados
+  if (allLoans.length === 0) {
+    emptyState.textContent = "Aún no hay préstamos registrados.";
+    emptyState.hidden = false;
+  } else if (filteredLoans.length === 0 && searchTerm !== "") {
+    emptyState.textContent = "No se encontraron resultados para la búsqueda.";
+    emptyState.hidden = false;
+  } else {
+    emptyState.hidden = true;
+  }
+
   renderEquipmentOptions();
 }
+// FIN MODIFICACIÓN FICHA 15
 
 function showMessage(message) {
   formMessage.textContent = message;
@@ -141,3 +162,11 @@ document.querySelector("#resetDemoBtn").addEventListener("click", () => {
 loanDateInput.value = todayISO();
 returnDateInput.value = todayISO();
 renderLoans();
+
+// AGREGADO PARA LA FICHA 15: Evento para el buscador
+const searchInput = document.querySelector("#searchInput");
+if (searchInput) {
+  searchInput.addEventListener("input", (event) => {
+    renderLoans(event.target.value);
+  });
+}

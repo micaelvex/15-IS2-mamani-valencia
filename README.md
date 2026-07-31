@@ -29,9 +29,8 @@ Reemplace esta tabla por los dos casos de su asignación. Incluya una captura po
 
 | Caso | Datos de entrada / acción | Resultado esperado | Resultado obtenido | Estado |
 |---|---|---|---|---|
-| CP-01: caso válido | [Completar] | [Completar] | [Completar] | Aprobado / Fallido |
-| CP-02: caso límite o inválido | [Completar] | [Completar] | [Completar] | Aprobado / Fallido |
-
+| CP-01: válido | Ingresar "micael" en el cuadro de búsqueda. | Una coincidencia muestra los registros correspondientes. | La tabla filtró los datos exitosamente y mostró únicamente el préstamo activo a nombre de "micael". | Aprobado |
+| CP-02: inválido, límite o cancelación| Ingresarel nombre "pedro" en el cuadro de búsqueda. | Una búsqueda sin coincidencias informa que no hay resultados. | La tabla de registros se ocultó y la interfaz mostró el mensaje "No se encontraron resultados para la búsqueda.". | Aprobado |
 ## Entrega
 
 - URL del repositorio individual.
